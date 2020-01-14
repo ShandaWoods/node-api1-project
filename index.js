@@ -39,6 +39,18 @@ const server = express();
    })
  })
 
+server.post('/api/users', (req, res) => {
+  const userData = req.body;
+  Users.insert(userData)
+  .then(user => {
+    res.status(201).json(hub);
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(400).json( { errorMessage: "Please provide name and bio for the user." } )
+  });
+});
+
  server.delete('/api/users/:id', (req, res) => {
    const id = req.params.id;
    Users.remove(id)
